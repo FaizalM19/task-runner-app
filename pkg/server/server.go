@@ -12,6 +12,10 @@ import (
 // Handler for login
 func LoginHandler(authService *auth.AuthService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			utils.ErrorResponse(w, http.StatusBadRequest, "invalid method")
+			return
+		}
 		var loginReq models.LoginRequest
 		err := json.NewDecoder(r.Body).Decode(&loginReq)
 		if err != nil {
@@ -33,6 +37,10 @@ func LoginHandler(authService *auth.AuthService) http.HandlerFunc {
 // Handler for creating a task
 func CreateTaskHandler(taskService *task.TaskService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			utils.ErrorResponse(w, http.StatusBadRequest, "invalid method")
+			return
+		}
 		taskID, err := taskService.CreateTask()
 		if err != nil {
 			utils.ErrorResponse(w, http.StatusNotFound, "Task output not found")
@@ -49,6 +57,10 @@ func CreateTaskHandler(taskService *task.TaskService) http.HandlerFunc {
 // Handler for getting task status
 func GetTaskStatusHandler(taskService *task.TaskService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			utils.ErrorResponse(w, http.StatusBadRequest, "invalid method")
+			return
+		}
 		taskID, err := utils.ExtractTaskID(r.URL.Path)
 		if err != nil {
 			utils.ErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -66,6 +78,10 @@ func GetTaskStatusHandler(taskService *task.TaskService) http.HandlerFunc {
 // Handler for getting completed task output
 func GetTaskOutputHandler(taskService *task.TaskService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			utils.ErrorResponse(w, http.StatusBadRequest, "invalid method")
+			return
+		}
 		taskID, err := utils.ExtractTaskID(r.URL.Path)
 		if err != nil {
 			utils.ErrorResponse(w, http.StatusBadRequest, err.Error())
