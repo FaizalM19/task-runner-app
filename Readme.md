@@ -6,7 +6,7 @@ This application provides an API for managing and running tasks. You can create 
 
 - Go
 - SQLite
--`.env` file with environment variables configured
+- `.env` file with environment variables configured
 
 
 ## 
@@ -24,7 +24,7 @@ This application provides an API for managing and running tasks. You can create 
 
 3. Run the application:
     ```bash
-    go run cmd/api/main.go
+    go run .
     ```
 
    The server will start on `http://localhost:8081`.
